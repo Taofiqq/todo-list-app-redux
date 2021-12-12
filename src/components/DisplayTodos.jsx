@@ -25,14 +25,14 @@ const mapDispatchToProps = (dispatch) => {
 const DisplayTodos = (props) => {
   const [sort, setSort] = useState("active");
   return (
-    <div>
-      <div>
+    <div className="display-todos">
+      <div className="buttons">
         <button onClick={() => setSort("active")}>Active</button>
         <button onClick={() => setSort("completed")}>Completed</button>
         <button onClick={() => setSort("all")}>All</button>
       </div>
 
-      <ul>
+      <ul className="display-item">
         {/* Active Items */}
         {props.todos.length > 0 && sort === "active"
           ? props.todos.map((todo) => {

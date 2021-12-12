@@ -27,27 +27,30 @@ const Todo = (props) => {
         item: todo,
         completed: false,
       });
+      setTodos("");
     }
   };
+
+  const addTodo = () => {
+    props.addTodo({
+      id: Math.floor(Math.random() * 1000),
+      item: todo,
+      completed: false,
+    });
+    setTodos("");
+  };
+
   return (
-    <div>
+    <div className="add-todos">
       <input
         type="text"
         onChange={handleChange}
         className="todo-input"
         onKeyDown={onKeyDown}
+        value={todo}
       />
-      <button
-        className="add -btn"
-        onClick={() =>
-          props.addTodo({
-            id: Math.floor(Math.random() * 1000),
-            item: todo,
-            completed: false,
-          })
-        }
-      >
-        Add
+      <button className="add-btn" onClick={addTodo}>
+        Add Task
       </button>
     </div>
   );

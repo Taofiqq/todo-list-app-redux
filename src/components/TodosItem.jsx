@@ -17,7 +17,7 @@ const TodosItem = (props) => {
     inputRef.current.focus();
   };
   return (
-    <li key={todo.id}>
+    <li key={todo.id} className="card">
       <textarea
         ref={inputRef}
         disabled={inputRef}
