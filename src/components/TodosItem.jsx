@@ -1,5 +1,9 @@
 import React from "react";
 import { useRef } from "react";
+import { BiEditAlt } from "react-icons/bi";
+import { AiFillDelete } from "react-icons/ai";
+import { GiCheckMark } from "react-icons/gi";
+import { motion } from "framer-motion";
 
 const TodosItem = (props) => {
   const inputRef = useRef(true);
@@ -17,7 +21,15 @@ const TodosItem = (props) => {
     inputRef.current.focus();
   };
   return (
-    <li key={todo.id} className="card">
+    <motion.li
+      initial={{ x: "150vw", transition: { duration: 2, type: "spring" } }}
+      animate={{ x: 0, transition: { duration: 2, type: "spring" } }}
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
+      exit={{ x: "-150vw", transition: { duration: 2, type: "spring" } }}
+      key={todo.id}
+      className="card"
+    >
       <textarea
         ref={inputRef}
         disabled={inputRef}
@@ -26,14 +38,22 @@ const TodosItem = (props) => {
       >
         {todo.item}
       </textarea>
-      <div>
-        <button onClick={() => changeFocus()}>Edit</button>
-        <button onClick={() => completeTodo(todo.id)}>Complete</button>
-        <button onClick={() => removeTodo(todo.id)}>Delete</button>
+      <div className="btns">
+        <button onClick={() => changeFocus()}>
+          <BiEditAlt />
+        </button>
+        {todo.completed === false && (
+          <button onClick={() => completeTodo(todo.id)}>
+            <GiCheckMark />
+          </button>
+        )}
+        <button onClick={() => removeTodo(todo.id)}>
+          <AiFillDelete />
+        </button>
       </div>
 
-      {todo.completed && <span>Done</span>}
-    </li>
+      {todo.completed && <span className="todo-completed">Done</span>}
+    </motion.li>
   );
 };
 

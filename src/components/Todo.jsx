@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { connect } from "react-redux";
 import { addTodo } from "../reduxStore/reducer";
-
+import { motion } from "framer-motion";
 const mapStateToProps = (state) => {
   return {
     todos: state,
@@ -32,26 +32,35 @@ const Todo = (props) => {
   };
 
   const addTodo = () => {
-    props.addTodo({
-      id: Math.floor(Math.random() * 1000),
-      item: todo,
-      completed: false,
-    });
-    setTodos("");
+    if (todo === "") {
+      alert("Please enter a todo");
+    } else {
+      props.addTodo({
+        id: Math.floor(Math.random() * 1000),
+        item: todo,
+        completed: false,
+      });
+      setTodos("");
+    }
   };
 
   return (
     <div className="add-todos">
-      <input
+      <motion.input
         type="text"
         onChange={handleChange}
         className="todo-input"
         onKeyDown={onKeyDown}
         value={todo}
       />
-      <button className="add-btn" onClick={addTodo}>
+      <motion.button
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        className="add-btn"
+        onClick={addTodo}
+      >
         Add Task
-      </button>
+      </motion.button>
     </div>
   );
 };
